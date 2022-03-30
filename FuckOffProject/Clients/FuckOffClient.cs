@@ -10,29 +10,28 @@ namespace FuckOffProject.Clients
 {
     public class FuckOffClient
     {
-        string BasePath = "https://foaas.com/off/";
+        string BasePath = "https://foaas.com/";
         public RestClient RestClient { get; set; }
 
-        public RestClient ReturnClient (string BasePath)
+        public RestClient ReturnClient (string endPoint)
         {
-            RestClient client = new RestClient(BasePath);
+            RestClient client = new RestClient($"{ BasePath }{endPoint}");
             return client;
         }
 
-        public RestRequest SetUpGenericRequest()
+        public RestRequest SetUp()
         {
             RestRequest restRequest = new RestRequest(Method.GET);
             restRequest.AddHeader("Accept", "application/json");
             return restRequest;
         }
 
-        public FuckOffModel GenericFuckOff()
+        public IRestResponse Execute(string endPoint)
         {
-            var client = ReturnClient(BasePath);
-            var request = SetUpGenericRequest();
-            IRestResponse response = client.Execute(request);
-            var effOff = JsonConvert.DeserializeObject<FuckOffModel>(response.Content);
-            return effOff;
+            var client = ReturnClient(endPoint);
+            var request = SetUp();
+            var response = client.Execute(request);
+            return response;
         }
     }
 }

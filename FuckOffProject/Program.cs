@@ -2,14 +2,16 @@
 using System.Threading;
 using RestSharp;
 using FuckOffProject.Clients;
-
+using FuckOffProject.Context;
+using FuckOffProject.Components;
 
 namespace FuckOffProject
 {
     class Program
     {
-         public static void Main(string[] args)
+        public static void Main(string[] args)
         {
+            
             Console.WriteLine("This is a console app that will look up recipes based on an ingredient you provide!");
             Console.WriteLine("\n");
             Console.WriteLine("-----------------------");
@@ -30,10 +32,11 @@ namespace FuckOffProject
                 if (recipes.Length == 0)
                 {
                     Console.WriteLine("---------------------------------------");
-                    var effOffClient = new FuckOffClient();
-                    var fuckOff = effOffClient.GenericFuckOff();
-                    Console.WriteLine(fuckOff.message);
-                    Console.WriteLine(fuckOff.subtitle);
+                    var effOffGenerator = new FuckOffComponent(new FuckOffMessageContext(), new FuckOffClient());
+                    var fuckOff = effOffGenerator.FuckOffByName(userName);
+                    Console.WriteLine(fuckOff.Result.Result.message);
+                    Console.WriteLine(fuckOff.Result.Result.subtitle);
+                    return;
                 }
                 else
                 {
