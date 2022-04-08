@@ -22,22 +22,22 @@ namespace FuckOffProject.Components
         }
         public async Task<IRestResponse> GenericFuckOff()
         {
-            var response = _client.Execute("off");
-            var effOff = JsonConvert.DeserializeObject<FuckOffModel>(response.Content);
+            var response = _client.CallEndPoint("off");
+            var effOff = JsonConvert.DeserializeObject<FuckOffModel>(response.Result.Content);
             _context.FuckOffMessagingContext = effOff;
-            return response;
+            return response.Result;
         }
 
         public async Task<ResultModel<FuckOffModel>> FuckOffByName(string name)
         {
-            var response = _client.Execute($"king/{name}/Server");
-            var effOffMessage = JsonConvert.DeserializeObject<FuckOffModel>(response.Content);
+            var response = _client.CallEndPoint($"king/{name}/Server");
+            var effOffMessage = JsonConvert.DeserializeObject<FuckOffModel>(response.Result.Content);
             _context.FuckOffMessagingContext = effOffMessage;
             return new ResultModel<FuckOffModel>
             {
-                IsSuccessStatusCode = response.IsSuccessful,
-                Result = JsonConvert.DeserializeObject<FuckOffModel>(response.Content),
-                StatusCode = response.StatusCode
+                IsSuccessStatusCode = response.Result.IsSuccessful,
+                Result = JsonConvert.DeserializeObject<FuckOffModel>(response.Result.Content),
+                StatusCode = response.Result.StatusCode
             };
         }
 

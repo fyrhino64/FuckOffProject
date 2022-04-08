@@ -8,12 +8,12 @@ using Newtonsoft.Json;
 
 namespace FuckOffProject.Clients
 {
-    public class FuckOffClient
+    public class FuckOffClient : IFuckOffInterface
     {
         string BasePath = "https://foaas.com/";
         public RestClient RestClient { get; set; }
 
-        public RestClient ReturnClient (string endPoint)
+        public RestClient ReturnClient(string endPoint)
         {
             RestClient client = new RestClient($"{ BasePath }{endPoint}");
             return client;
@@ -26,12 +26,13 @@ namespace FuckOffProject.Clients
             return restRequest;
         }
 
-        public IRestResponse Execute(string endPoint)
+        public async Task<IRestResponse> CallEndPoint(string endPoint)
         {
             var client = ReturnClient(endPoint);
             var request = SetUp();
             var response = client.Execute(request);
             return response;
         }
+
     }
 }
