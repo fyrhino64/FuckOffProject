@@ -52,6 +52,16 @@ namespace FuckOffProject
                     var recipeChoice = Convert.ToInt32(Console.ReadLine());
                     var recipeChoiceTitle = recipes[recipeChoice].Title;
                     Console.WriteLine($" You chose {recipeChoiceTitle}");
+                    var callindicator = 'I';
+                    var recipeDetail = component.GetRecipeDetailsById(recipes[recipeChoice].Id, callindicator);
+                    Console.WriteLine("---------------------------------------");
+                    Console.WriteLine($"{recipeChoiceTitle} has {recipeDetail.ExtendedIngredients.Count} ingredients");
+                    var ingredientList = recipeDetail.ExtendedIngredients;
+                    foreach (var ingredient in ingredientList)
+                    {
+                        Console.WriteLine($"{ingredient.Name}");
+                        Console.WriteLine("");
+                    }
                 }
 
             }

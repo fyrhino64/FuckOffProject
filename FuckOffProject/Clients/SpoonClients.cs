@@ -30,10 +30,10 @@ namespace FuckOffProject
             return client;
         }
 
-        public RestRequest SetUpRestRequest(string endPoint, string ingredientName)
+        public RestRequest SetUpRestRequest(string endPoint)
         {
             GetAuthToken();
-            RestRequest request = new RestRequest(endPoint + ingredientName + "&apiKey=" + apiKey, Method.GET);
+            RestRequest request = new RestRequest(endPoint + "apiKey=" + apiKey, Method.GET);
             request.AddHeader("Accept", "application/json;odata=verbose");
             return request;
         }

@@ -13,5 +13,6 @@ namespace FuckOffProject.Context
         public IngredientDetails IngredientDetails { get; set; }
         public RecipeInfo RecipeInfo { get; set; }
         public List<RecipeInfo> ReturnedRecipes { get; set; }
+        public long? recipeId { get; set; }
     }
 }
