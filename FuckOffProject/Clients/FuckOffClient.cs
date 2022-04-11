@@ -13,36 +13,23 @@ namespace FuckOffProject.Clients
         string BasePath = "https://foaas.com/";
         public RestClient RestClient { get; set; }
 
-        public RestClient ReturnClient(string endPoint)
+        public RestClient ReturnClient()
         {
-            RestClient client = new RestClient($"{ BasePath }{endPoint}");
+            RestClient client = new RestClient(BasePath);
             return client;
         }
 
-        public RestRequest SetUp()
+        public RestRequest SetUpRestRequest(string endPoint)
         {
-            RestRequest restRequest = new RestRequest(Method.GET);
+            RestRequest restRequest = new RestRequest(endPoint, Method.GET);
             restRequest.AddHeader("Accept", "application/json");
             return restRequest;
         }
 
-        public async Task<IRestResponse> CallEndPoint(string endPoint)
+        public async Task<IRestResponse> Executes (RestRequest request)
         {
-            var client = ReturnClient(endPoint);
-            var request = SetUp();
+            var client = ReturnClient();
             var response = client.Execute(request);
-            return response;
-        }
-
-        public Task<IRestResponse> Execute(string endPoint)
-        {
-            var response = CallEndPoint(endPoint);
-            return response;
-        }
-
-        public Task<IRestResponse> Executes (RestRequest request)
-        {
-            var response = CallEndPoint("endPoint");
             return response;
         }
 

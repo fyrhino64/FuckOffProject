@@ -40,7 +40,7 @@ namespace FuckOffProject
 
         public async Task<IRestResponse> Executes(RestRequest args)
         {
-            var client = new RestClient(BasePath);
+            var client = SetUpRestClient();
             var response = client.Execute(args);
             return response;
         }

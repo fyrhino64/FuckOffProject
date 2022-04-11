@@ -22,7 +22,8 @@ namespace FuckOffProject.Components
         }
         public async Task<IRestResponse> GenericFuckOff()
         {
-            var response = _client.CallEndPoint("off");
+            var request = _client.SetUpRestRequest("off");
+            var response = _client.Executes(request);
             var effOff = JsonConvert.DeserializeObject<FuckOffModel>(response.Result.Content);
             _context.FuckOffMessagingContext = effOff;
             return response.Result;
@@ -30,7 +31,8 @@ namespace FuckOffProject.Components
 
         public async Task<ResultModel<FuckOffModel>> FuckOffByName(string name)
         {
-            var response = _client.CallEndPoint($"king/{name}/Server");
+            var request = _client.SetUpRestRequest($"king/{name}/Server");
+            var response = _client.Executes(request);
             var effOffMessage = JsonConvert.DeserializeObject<FuckOffModel>(response.Result.Content);
             _context.FuckOffMessagingContext = effOffMessage;
             return new ResultModel<FuckOffModel>
