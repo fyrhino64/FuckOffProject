@@ -9,9 +9,9 @@ using Newtonsoft;
 using Newtonsoft.Json;
 using System.Linq;
 
-namespace FuckOffProject
+namespace FuckOffProject 
 {
-    public class SpoonClients
+    public class SpoonClients : IClientInterface
     {
         string BasePath = "https://api.spoonacular.com";
         public RestClient RestClient { get; set; }
@@ -24,28 +24,25 @@ namespace FuckOffProject
             apiKey = AuthToken.GetAuthToken();
         }
 
-        public RestClient SetUpRestClient(string BasePath)
+        public RestClient SetUpRestClient()
         {
             RestClient client = new RestClient(BasePath);
             return client;
         }
 
-        public RestRequest SetUpRestRequest(string endPoint, string ingredientName, string apiKey)
+        public RestRequest SetUpRestRequest(string endPoint, string ingredientName)
         {
+            GetAuthToken();
             RestRequest request = new RestRequest(endPoint + ingredientName + "&apiKey=" + apiKey, Method.GET);
             request.AddHeader("Accept", "application/json;odata=verbose");
             return request;
         }
 
-        public List<RecipeInfo> GetRecipesByIngredient(string ingredientName)
+        public async Task<IRestResponse> Executes(RestRequest args)
         {
-            endPoint = "/recipes/findByIngredients?ingredients=";
-            GetAuthToken();
-            var client = SetUpRestClient(BasePath);
-            var request = SetUpRestRequest(endPoint, ingredientName,  apiKey);
-            IRestResponse response = client.Execute(request);
-            var ingredientList = JsonConvert.DeserializeObject<List<RecipeInfo>>(response.Content);
-            return ingredientList;
+            var client = new RestClient(BasePath);
+            var response = client.Execute(args);
+            return response;
         }
     }
 

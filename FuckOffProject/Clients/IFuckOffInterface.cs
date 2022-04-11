@@ -8,11 +8,11 @@ using System.Web.Http;
 
 namespace FuckOffProject.Clients
 {
-    public interface IFuckOffInterface
+    public interface IClientInterface
     {
         public RestClient RestClient { get; set; }
 
-        public Task<IRestResponse> Execute(string args);
+        public Task<IRestResponse> Executes(RestRequest args);
     }
 
     

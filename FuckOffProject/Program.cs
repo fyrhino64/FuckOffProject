@@ -26,8 +26,9 @@ namespace FuckOffProject
 
               void SearchIngredient(string ingredientName)
             {
-                var client = new SpoonClients();
-                var recipes = client.GetRecipesByIngredient(ingredientName).ToArray();
+                char recipeIndicator = 'R';
+                var component = new SpoonComponent(new RecipeContext(), new SpoonClients());
+                var recipes = component.GetRecipesByIngredient(ingredientName, recipeIndicator).ToArray();
                 Console.WriteLine($"We found {recipes.Length} recipes for your ingredient: {ingredientName}");
                 if (recipes.Length == 0)
                 {
