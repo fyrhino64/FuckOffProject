@@ -12,7 +12,7 @@ namespace FuckOffProject.Clients
     {
         public RestClient RestClient { get; set; }
 
-        public void Execute();
+        public Task<IRestResponse> Execute(string args);
     }
 
     

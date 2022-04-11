@@ -10,6 +10,7 @@ using FuckOffProject.Clients;
 using NSubstitute;
 using RestSharp;
 using Newtonsoft.Json;
+using Assert = NUnit.Framework.Assert;
 
 namespace FuckOffClientUnitTests
 {
@@ -31,9 +32,9 @@ namespace FuckOffClientUnitTests
                     ResponseStatus = ResponseStatus.Completed
                 };
 
-                 clientMock.Execute().Returns(response);
-                //Assert.IsTrue();
-                //Assert.IsNotNull(clientResponse.Content);
+                var clientResponse = clientMock.Execute(endPoint).Returns(response);
+                Assert.IsNotNull(clientResponse, "mockClient did not return call as expected");
+                Assert.IsNotNull(clientResponse);
             }
         }
     }

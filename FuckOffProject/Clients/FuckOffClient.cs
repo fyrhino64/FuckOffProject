@@ -34,5 +34,11 @@ namespace FuckOffProject.Clients
             return response;
         }
 
+        public Task<IRestResponse> Execute(string endPoint)
+        {
+            var response = CallEndPoint(endPoint);
+            return response;
+        }
+
     }
 }
