@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading;
-using RestSharp;
 using FuckOffProject.Clients;
 using FuckOffProject.Context;
 using FuckOffProject.Components;
+using System.Threading.Tasks;
 
 namespace FuckOffProject
 {
@@ -34,10 +34,11 @@ namespace FuckOffProject
                 {
                     Console.WriteLine("---------------------------------------");
                     var effOffGenerator = new FuckOffComponent(new FuckOffMessageContext(), new FuckOffClient());
-                    var fuckOff = effOffGenerator.FuckOffByName(userName);
+                    var randomizer = new Random();
+                    var chooser = randomizer.Next(2);
+                    var fuckOff = effOffGenerator.GetChoiceAndCallEndPoint(userName, chooser);
                     Console.WriteLine(fuckOff.Result.Result.message);
                     Console.WriteLine(fuckOff.Result.Result.subtitle);
-                    return;
                 }
                 else
                 {
@@ -59,14 +60,15 @@ namespace FuckOffProject
                     var ingredientList = recipeDetail.ExtendedIngredients;
                     foreach (var ingredient in ingredientList)
                     {
-                        Console.WriteLine($"{ingredient.Name}");
+                        Console.WriteLine($"{ingredient.Amount} {ingredient.Unit} {ingredient.Name}");
                         Console.WriteLine("");
                     }
+                    Console.WriteLine($"To Make {recipeChoiceTitle}: ");
+                    Console.WriteLine($"{ recipeDetail.instructions}");
                 }
 
             }
         }
-
         
     }
 }
